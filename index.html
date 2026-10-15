@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Демонстрационная форма регистрации пользователя">
+  <title>Регистрация аккаунта</title>
+  <style>
+    :root{color-scheme:light;--bg:#f3f6fb;--card:#fff;--ink:#172033;--muted:#667085;--accent:#4169e1;--border:#dce3ef;--danger:#b42318;--success:#067647}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 8% 8%,#4169e11c,transparent 32%),radial-gradient(circle at 90% 90%,#0ea5e91a,transparent 30%),var(--bg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+    main{width:100%;max-width:460px}
+    header{text-align:center;margin-bottom:22px}
+    .logo{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:15px;background:var(--accent);color:white;font-size:21px;font-weight:800}
+    h1{margin:14px 0 6px;font-size:clamp(26px,5vw,32px);letter-spacing:-.7px}
+    .sub{margin:0;color:var(--muted);line-height:1.5}
+    .card{background:var(--card);border:1px solid #dce3efe6;border-radius:22px;padding:28px;box-shadow:0 18px 55px #1f2d5017}
+    .field{margin-bottom:17px}
+    label{display:block;font-weight:650;font-size:14px;margin-bottom:7px}
+    input:not([type=checkbox]){display:block;width:100%;border:1px solid var(--border);border-radius:11px;padding:12px 13px;font:inherit;color:var(--ink);background:white;outline:none}
+    input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #4169e124}
+    input[aria-invalid=true]{border-color:var(--danger)}
+    .pw{position:relative}.pw input{padding-right:82px!important}
+    .toggle{position:absolute;right:7px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--accent);font-weight:650;cursor:pointer;padding:7px}
+    .hint{font-size:12px;color:var(--muted);margin:6px 0 0}
+    .terms{display:flex;align-items:flex-start;gap:10px;margin:5px 0 18px}
+    .terms input{width:17px;height:17px;margin:2px 0 0;flex:none}
+    .terms label{font-weight:400;margin:0;line-height:1.45;color:var(--muted)}
+    a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+    button:focus-visible,a:focus-visible{outline:3px solid #4169e159;outline-offset:2px}
+    .submit{width:100%;border:0;border-radius:11px;padding:13px 16px;background:var(--accent);color:white;font:inherit;font-weight:750;cursor:pointer}
+    .submit:hover{background:#3154c8}
+    .message{display:none;padding:11px 12px;margin:0 0 16px;border-radius:10px;font-size:14px;line-height:1.45}
+    .message.error{display:block;color:var(--danger);background:#fef3f2}
+    .message.success{display:block;color:var(--success);background:#ecfdf3}
+    .bottom{text-align:center;color:var(--muted);font-size:14px;margin:20px 0 0}
+    .note{text-align:center;color:var(--muted);font-size:12px;line-height:1.55;margin:18px 4px 0}
+    @media(max-width:420px){.card{padding:22px 18px}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="logo" aria-hidden="true">A</div>
+      <h1>Создать аккаунт</h1>
+      <p class="sub">Заполни форму, чтобы начать</p>
+    </header>
+    <section class="card" aria-label="Форма регистрации">
+      <div id="message" class="message" role="status" aria-live="polite"></div>
+      <form id="registrationForm">
+        <div class="field">
+          <label for="name">Имя</label>
+          <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required>
+        </div>
+        <div class="field">
+          <label for="email">Электронная почта</label>
+          <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
+        </div>
+        <div class="field">
+          <label for="password">Пароль</label>
+          <div class="pw">
+            <input id="password" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required aria-describedby="passwordHint">
+            <button class="toggle" type="button" data-target="password">Показать</button>
+          </div>
+          <p class="hint" id="passwordHint">Используй не менее 12 символов. Не используй пароль от других сайтов.</p>
+        </div>
+        <div class="field">
+          <label for="confirmPassword">Повтори пароль</label>
+          <div class="pw">
+            <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
+            <button class="toggle" type="button" data-target="confirmPassword">Показать</button>
+          </div>
+        </div>
+        <div class="terms">
+          <input id="terms" name="terms" type="checkbox" required>
+          <label for="terms">Я согласен(на) с демонстрационными условиями использования.</label>
+        </div>
+        <button class="submit" type="submit">Проверить регистрацию</button>
+      </form>
+      <p class="bottom">Уже есть аккаунт? <a href="#login" id="loginLink">Войти</a></p>
+      <p class="note">Демо-версия: настоящие аккаунты не создаются, данные не отправляются и не сохраняются.</p>
+    </section>
+  </main>
+  <script>
+    "use strict";
+    const form = document.getElementById("registrationForm");
+    const message = document.getElementById("message");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = "message " + type;
+    }
+    function clearMessage() {
+      message.textContent = "";
+      message.className = "message";
+    }
+
+    document.querySelectorAll(".toggle").forEach((button) => {
+      button.addEventListener("click", () => {
+        const input = document.getElementById(button.dataset.target);
+        const show = input.type === "password";
+        input.type = show ? "text" : "password";
+        button.textContent = show ? "Скрыть" : "Показать";
+        button.setAttribute("aria-pressed", String(show));
+      });
+    });
+
+    [password, confirmPassword].forEach((input) => {
+      input.addEventListener("input", () => {
+        confirmPassword.setCustomValidity(
+          confirmPassword.value && password.value !== confirmPassword.value
+            ? "Пароли не совпадают." : ""
+        );
+        input.removeAttribute("aria-invalid");
+        clearMessage();
+      });
+    });
+
+    form.addEventListener("input", clearMessage);
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      clearMessage();
+      const name = document.getElementById("name");
+      const email = document.getElementById("email");
+      const terms = document.getElementById("terms");
+
+      if (!name.value.trim()) {
+        name.setAttribute("aria-invalid", "true");
+        name.focus();
+        showMessage("Введи имя.", "error");
+        return;
+      }
+      if (!email.value.trim() || !email.validity.valid) {
+        email.setAttribute("aria-invalid", "true");
+        email.focus();
+        showMessage("Проверь адрес электронной почты.", "error");
+        return;
+      }
+      if (password.value.length < 12) {
+        password.setAttribute("aria-invalid", "true");
+        password.focus();
+        showMessage("Пароль должен содержать не менее 12 символов.", "error");
+        return;
+      }
+      if (password.value !== confirmPassword.value) {
+        confirmPassword.setAttribute("aria-invalid", "true");
+        confirmPassword.focus();
+        showMessage("Пароли не совпадают.", "error");
+        return;
+      }
+      if (!terms.checked) {
+        terms.focus();
+        showMessage("Подтверди согласие с условиями.", "error");
+        return;
+      }
+
+      // Намеренно не сохраняем и не отправляем персональные данные.
+      showMessage("Проверка формы пройдена. Это только демо: сервер регистрации не подключён.", "success");
+      form.reset();
+      confirmPassword.setCustomValidity("");
+    });
+
+    document.getElementById("loginLink").addEventListener("click", (event) => {
+      event.preventDefault();
+      showMessage("Вход пока не реализован. Для настоящей авторизации нужен сервер.", "error");
+    });
+  </script>
+</body>
+</html>
