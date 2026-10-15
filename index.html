@@ -4,169 +4,257 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta name="description" content="Демонстрационная форма регистрации пользователя">
-  <title>Регистрация аккаунта</title>
+  <meta name="description" content="Регистрация и профиль пользователя">
+  <meta name="color-scheme" content="light">
+  <title>Registration — аккаунт</title>
   <style>
-    :root{color-scheme:light;--bg:#f3f6fb;--card:#fff;--ink:#172033;--muted:#667085;--accent:#4169e1;--border:#dce3ef;--danger:#b42318;--success:#067647}
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 8% 8%,#4169e11c,transparent 32%),radial-gradient(circle at 90% 90%,#0ea5e91a,transparent 30%),var(--bg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
-    main{width:100%;max-width:460px}
-    header{text-align:center;margin-bottom:22px}
-    .logo{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:15px;background:var(--accent);color:white;font-size:21px;font-weight:800}
-    h1{margin:14px 0 6px;font-size:clamp(26px,5vw,32px);letter-spacing:-.7px}
-    .sub{margin:0;color:var(--muted);line-height:1.5}
-    .card{background:var(--card);border:1px solid #dce3efe6;border-radius:22px;padding:28px;box-shadow:0 18px 55px #1f2d5017}
-    .field{margin-bottom:17px}
-    label{display:block;font-weight:650;font-size:14px;margin-bottom:7px}
-    input:not([type=checkbox]){display:block;width:100%;border:1px solid var(--border);border-radius:11px;padding:12px 13px;font:inherit;color:var(--ink);background:white;outline:none}
-    input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #4169e124}
-    input[aria-invalid=true]{border-color:var(--danger)}
-    .pw{position:relative}.pw input{padding-right:82px!important}
-    .toggle{position:absolute;right:7px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--accent);font-weight:650;cursor:pointer;padding:7px}
-    .hint{font-size:12px;color:var(--muted);margin:6px 0 0}
-    .terms{display:flex;align-items:flex-start;gap:10px;margin:5px 0 18px}
-    .terms input{width:17px;height:17px;margin:2px 0 0;flex:none}
-    .terms label{font-weight:400;margin:0;line-height:1.45;color:var(--muted)}
-    a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-    button:focus-visible,a:focus-visible{outline:3px solid #4169e159;outline-offset:2px}
-    .submit{width:100%;border:0;border-radius:11px;padding:13px 16px;background:var(--accent);color:white;font:inherit;font-weight:750;cursor:pointer}
-    .submit:hover{background:#3154c8}
-    .message{display:none;padding:11px 12px;margin:0 0 16px;border-radius:10px;font-size:14px;line-height:1.45}
-    .message.error{display:block;color:var(--danger);background:#fef3f2}
-    .message.success{display:block;color:var(--success);background:#ecfdf3}
-    .bottom{text-align:center;color:var(--muted);font-size:14px;margin:20px 0 0}
-    .note{text-align:center;color:var(--muted);font-size:12px;line-height:1.55;margin:18px 4px 0}
-    @media(max-width:420px){.card{padding:22px 18px}}
+    :root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#172033;background:#f3f6fb;font-synthesis:none;text-rendering:optimizeLegibility;--blue:#345fe8;--muted:#667085;--line:#dce3ef}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;padding:24px;display:grid;place-items:center;background:radial-gradient(circle at 8% 8%,#4169e11c,transparent 32%),radial-gradient(circle at 90% 90%,#0ea5e91a,transparent 30%),#f3f6fb}
+    main{width:100%;max-width:620px}.brand{text-align:center;margin-bottom:22px}.logo{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:15px;background:var(--blue);color:white;font-weight:800;font-size:21px}
+    h1{margin:12px 0 5px;font-size:30px;letter-spacing:-.6px}.subtitle{margin:0;color:var(--muted)}.card{background:white;border:1px solid #dce3ef;border-radius:20px;padding:26px;box-shadow:0 18px 55px #1f2d5017;margin-bottom:16px}
+    h2{font-size:18px;margin:0 0 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{margin-bottom:15px}label{display:block;font-size:14px;font-weight:650;margin-bottom:7px}
+    input:not([type=checkbox]){width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;outline:none;background:white;color:#172033}input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #345fe820}
+    .pw{position:relative}.pw input{padding-right:78px!important}.toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--blue);cursor:pointer;font-weight:650}
+    button{font:inherit;cursor:pointer}.primary,.secondary{border-radius:10px;padding:12px 16px;font-weight:700}.primary{width:100%;border:0;background:var(--blue);color:white}.primary:hover{background:#284bc0}.secondary{border:1px solid var(--line);background:white;color:#172033}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row .primary{width:auto;flex:1}
+    .switch{display:flex;justify-content:center;gap:8px;margin-top:14px;font-size:14px;color:var(--muted)}.link{border:0;padding:0;background:none;color:var(--blue);font-weight:650}
+    .message{display:none;padding:12px;border-radius:10px;margin:0 0 15px;font-size:14px;line-height:1.5;overflow-wrap:anywhere}.message.show{display:block}.error{background:#fef3f2;color:#b42318}.ok{background:#ecfdf3;color:#067647}.info{background:#eff6ff;color:#1d4ed8}
+    .hint,.footnote{font-size:12px;line-height:1.55;color:var(--muted)}.hint{margin:6px 0 0}.footnote{margin:14px 0 0}
+    [hidden]{display:none!important}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid #edf0f5;vertical-align:top}th{color:var(--muted);font-weight:650;width:35%}td{overflow-wrap:anywhere}
+    .section-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.section-head h2{margin:0}.pill{font-size:12px;padding:5px 9px;border-radius:999px;background:#ecfdf3;color:#067647}
+    @media(max-width:520px){body{padding:14px}.card{padding:20px 16px}.grid{grid-template-columns:1fr;gap:0}.section-head{align-items:flex-start;flex-direction:column}h1{font-size:27px}}
   </style>
 </head>
 <body>
-  <main>
-    <header>
-      <div class="logo" aria-hidden="true">A</div>
-      <h1>Создать аккаунт</h1>
-      <p class="sub">Заполни форму, чтобы начать</p>
-    </header>
-    <section class="card" aria-label="Форма регистрации">
-      <div id="message" class="message" role="status" aria-live="polite"></div>
-      <form id="registrationForm">
-        <div class="field">
-          <label for="name">Имя</label>
-          <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required>
-        </div>
-        <div class="field">
-          <label for="email">Электронная почта</label>
-          <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
-        </div>
-        <div class="field">
-          <label for="password">Пароль</label>
-          <div class="pw">
-            <input id="password" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required aria-describedby="passwordHint">
-            <button class="toggle" type="button" data-target="password">Показать</button>
-          </div>
-          <p class="hint" id="passwordHint">Используй не менее 12 символов. Не используй пароль от других сайтов.</p>
-        </div>
-        <div class="field">
-          <label for="confirmPassword">Повтори пароль</label>
-          <div class="pw">
-            <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
-            <button class="toggle" type="button" data-target="confirmPassword">Показать</button>
-          </div>
-        </div>
-        <div class="terms">
-          <input id="terms" name="terms" type="checkbox" required>
-          <label for="terms">Я согласен(на) с демонстрационными условиями использования.</label>
-        </div>
-        <button class="submit" type="submit">Проверить регистрацию</button>
-      </form>
-      <p class="bottom">Уже есть аккаунт? <a href="#login" id="loginLink">Войти</a></p>
-      <p class="note">Демо-версия: настоящие аккаунты не создаются, данные не отправляются и не сохраняются.</p>
-    </section>
-  </main>
-  <script>
-    "use strict";
-    const form = document.getElementById("registrationForm");
-    const message = document.getElementById("message");
-    const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirmPassword");
+<main>
+  <header class="brand">
+    <div class="logo" aria-hidden="true">R</div>
+    <h1>Registration</h1>
+    <p class="subtitle">Аккаунт и личные данные</p>
+  </header>
 
-    function showMessage(text, type) {
-      message.textContent = text;
-      message.className = "message " + type;
+  <section class="card" id="authCard">
+    <h2 id="formTitle">Создать аккаунт</h2>
+    <div id="message" class="message" role="status" aria-live="polite"></div>
+    <form id="authForm">
+      <div class="field" id="nameField">
+        <label for="displayName">Имя для профиля</label>
+        <input id="displayName" name="displayName" type="text" autocomplete="name" maxlength="80" required>
+      </div>
+      <div class="field">
+        <label for="email">Электронная почта</label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
+      </div>
+      <div class="field">
+        <label for="password">Пароль</label>
+        <div class="pw">
+          <input id="password" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
+          <button class="toggle" type="button" data-target="password">Показать</button>
+        </div>
+        <p class="hint">Используй длинный уникальный пароль. Минимум 12 символов.</p>
+      </div>
+      <button class="primary" id="submitButton" type="submit">Зарегистрироваться</button>
+    </form>
+    <div class="switch"><span id="switchText">Уже есть аккаунт?</span><button class="link" id="switchMode" type="button">Войти</button></div>
+    <p class="footnote">Пароли обрабатывает Supabase Auth. Этот сайт не записывает пароль в таблицу профилей.</p>
+  </section>
+
+  <section class="card" id="profileCard" hidden>
+    <div class="section-head"><h2>Таблица моих данных</h2><span class="pill">Защищённый профиль</span></div>
+    <div id="profileMessage" class="message" role="status" aria-live="polite"></div>
+    <form id="profileForm">
+      <div class="field">
+        <label for="profileName">Имя в профиле</label>
+        <input id="profileName" name="profileName" type="text" maxlength="80" required>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><th scope="row">ID пользователя</th><td id="userId">—</td></tr>
+            <tr><th scope="row">Email</th><td id="userEmail">—</td></tr>
+            <tr><th scope="row">Дата создания</th><td id="createdAt">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="hint">Показываются только данные вошедшего пользователя. Список всех пользователей публично не раскрывается.</p>
+      <div class="row" style="margin-top:18px">
+        <button class="primary" type="submit">Сохранить имя</button>
+        <button class="secondary" id="logoutButton" type="button">Выйти</button>
+      </div>
+    </form>
+  </section>
+  <p class="footnote" style="text-align:center">Настройка базы обязательна перед использованием. Не добавляй service_role key или пароль базы данных в этот файл или публичный репозиторий.</p>
+</main>
+
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/+esm";
+
+  // Эти два значения не являются service_role секретами. Вставь Project URL
+  // и publishable/anon key из Supabase Dashboard → Project Settings → API.
+  // Защиту данных обеспечивает RLS в schema.sql, а не сокрытие publishable key.
+  const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
+  const SUPABASE_PUBLISHABLE_KEY = "PASTE_YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY_HERE";
+  const configured = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SUPABASE_URL)
+    && !SUPABASE_PUBLISHABLE_KEY.startsWith("PASTE_")
+    && SUPABASE_PUBLISHABLE_KEY.length > 20;
+
+  const $ = (id) => document.getElementById(id);
+  const authCard = $("authCard"), profileCard = $("profileCard");
+  const authForm = $("authForm"), authMessage = $("message"), profileMessage = $("profileMessage");
+  let supabase = null, mode = "signup", currentUser = null;
+
+  function say(element, text, kind = "info") {
+    element.textContent = text;
+    element.className = "message show " + kind;
+  }
+  function clear(element) { element.textContent = ""; element.className = "message"; }
+  function busy(button, state, label) {
+    button.disabled = state;
+    if (state) { button.dataset.oldLabel = button.textContent; button.textContent = label; }
+    else if (button.dataset.oldLabel) { button.textContent = button.dataset.oldLabel; delete button.dataset.oldLabel; }
+  }
+  function setMode(next) {
+    mode = next;
+    $("formTitle").textContent = mode === "signup" ? "Создать аккаунт" : "Войти";
+    $("nameField").hidden = mode !== "signup";
+    $("displayName").required = mode === "signup";
+    $("password").autocomplete = mode === "signup" ? "new-password" : "current-password";
+    $("submitButton").textContent = mode === "signup" ? "Зарегистрироваться" : "Войти";
+    $("switchText").textContent = mode === "signup" ? "Уже есть аккаунт?" : "Нет аккаунта?";
+    $("switchMode").textContent = mode === "signup" ? "Войти" : "Создать аккаунт";
+    clear(authMessage);
+  }
+  $("switchMode").addEventListener("click", () => setMode(mode === "signup" ? "login" : "signup"));
+  document.querySelectorAll(".toggle").forEach((button) => button.addEventListener("click", () => {
+    const input = $(button.dataset.target), show = input.type === "password";
+    input.type = show ? "text" : "password";
+    button.textContent = show ? "Скрыть" : "Показать";
+    button.setAttribute("aria-pressed", String(show));
+  }));
+
+  async function loadProfile(user) {
+    currentUser = user;
+    authCard.hidden = true;
+    profileCard.hidden = false;
+    $("userId").textContent = user.id;
+    $("userEmail").textContent = user.email || "—";
+    $("profileName").value = user.user_metadata?.display_name || "";
+    $("createdAt").textContent = user.created_at ? new Date(user.created_at).toLocaleString("ru-RU") : "—";
+    clear(profileMessage);
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("display_name, created_at")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (error) {
+      say(profileMessage, "Не удалось загрузить профиль. Проверь, что применён schema.sql и включены RLS-политики.", "error");
+      return;
     }
-    function clearMessage() {
-      message.textContent = "";
-      message.className = "message";
+    if (!data) {
+      say(profileMessage, "Профиль ещё не создан. Проверь SQL-триггер из schema.sql и настройки подтверждения email.", "error");
+      return;
     }
+    $("profileName").value = data.display_name || "";
+    $("createdAt").textContent = data.created_at ? new Date(data.created_at).toLocaleString("ru-RU") : "—";
+  }
 
-    document.querySelectorAll(".toggle").forEach((button) => {
-      button.addEventListener("click", () => {
-        const input = document.getElementById(button.dataset.target);
-        const show = input.type === "password";
-        input.type = show ? "text" : "password";
-        button.textContent = show ? "Скрыть" : "Показать";
-        button.setAttribute("aria-pressed", String(show));
-      });
+  authForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    clear(authMessage);
+    if (!configured || !supabase) {
+      say(authMessage, "Сначала создай проект Supabase и вставь Project URL и publishable/anon key в index.html. Не используй service_role key.", "error");
+      return;
+    }
+    const email = $("email").value.trim();
+    const password = $("password").value;
+    const displayName = $("displayName").value.trim();
+    if (!email || !$("email").validity.valid) {
+      say(authMessage, "Введи корректный адрес электронной почты.", "error"); $("email").focus(); return;
+    }
+    if (mode === "signup" && !displayName) {
+      say(authMessage, "Введи имя для профиля.", "error"); $("displayName").focus(); return;
+    }
+    if (mode === "signup" && password.length < 12) {
+      say(authMessage, "Пароль должен содержать не менее 12 символов.", "error"); $("password").focus(); return;
+    }
+    const submit = $("submitButton");
+    busy(submit, true, "Подожди…");
+    try {
+      if (mode === "signup") {
+        const { data, error } = await supabase.auth.signUp({
+          email, password, options: { data: { display_name: displayName } }
+        });
+        if (error) throw error;
+        if (data.session && data.user) {
+          await loadProfile(data.user);
+        } else {
+          say(authMessage, "Регистрация отправлена. Проверь почту и подтверди адрес, затем войди.", "ok");
+          authForm.reset();
+        }
+      } else {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        if (data.user) await loadProfile(data.user);
+      }
+    } catch (error) {
+      // Не выводим токены, пароли или внутренние детали в интерфейс.
+      say(authMessage, error?.message || "Не удалось выполнить запрос. Попробуй ещё раз.", "error");
+    } finally {
+      busy(submit, false);
+      $("password").value = "";
+    }
+  });
+
+  $("profileForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    clear(profileMessage);
+    if (!supabase || !currentUser) return;
+    const display_name = $("profileName").value.trim();
+    if (!display_name || display_name.length > 80) {
+      say(profileMessage, "Имя должно содержать от 1 до 80 символов.", "error"); return;
+    }
+    const button = event.submitter;
+    busy(button, true, "Сохраняю…");
+    try {
+      const { error } = await supabase.from("profiles")
+        .update({ display_name })
+        .eq("id", currentUser.id);
+      if (error) throw error;
+      say(profileMessage, "Имя сохранено.", "ok");
+    } catch (error) {
+      say(profileMessage, "Не удалось сохранить профиль. Проверь RLS и SQL-настройку.", "error");
+    } finally {
+      busy(button, false);
+    }
+  });
+
+  $("logoutButton").addEventListener("click", async () => {
+    if (!supabase) return;
+    const { error } = await supabase.auth.signOut();
+    if (error) { say(profileMessage, "Не удалось завершить сеанс.", "error"); return; }
+    currentUser = null;
+    profileCard.hidden = true;
+    authCard.hidden = false;
+    authForm.reset();
+    setMode("login");
+    say(authMessage, "Ты вышел из аккаунта.", "ok");
+  });
+
+  if (configured) {
+    supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
     });
-
-    [password, confirmPassword].forEach((input) => {
-      input.addEventListener("input", () => {
-        confirmPassword.setCustomValidity(
-          confirmPassword.value && password.value !== confirmPassword.value
-            ? "Пароли не совпадают." : ""
-        );
-        input.removeAttribute("aria-invalid");
-        clearMessage();
-      });
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user) await loadProfile(session.user);
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_OUT") {
+        currentUser = null; profileCard.hidden = true; authCard.hidden = false;
+      }
     });
-
-    form.addEventListener("input", clearMessage);
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      clearMessage();
-      const name = document.getElementById("name");
-      const email = document.getElementById("email");
-      const terms = document.getElementById("terms");
-
-      if (!name.value.trim()) {
-        name.setAttribute("aria-invalid", "true");
-        name.focus();
-        showMessage("Введи имя.", "error");
-        return;
-      }
-      if (!email.value.trim() || !email.validity.valid) {
-        email.setAttribute("aria-invalid", "true");
-        email.focus();
-        showMessage("Проверь адрес электронной почты.", "error");
-        return;
-      }
-      if (password.value.length < 12) {
-        password.setAttribute("aria-invalid", "true");
-        password.focus();
-        showMessage("Пароль должен содержать не менее 12 символов.", "error");
-        return;
-      }
-      if (password.value !== confirmPassword.value) {
-        confirmPassword.setAttribute("aria-invalid", "true");
-        confirmPassword.focus();
-        showMessage("Пароли не совпадают.", "error");
-        return;
-      }
-      if (!terms.checked) {
-        terms.focus();
-        showMessage("Подтверди согласие с условиями.", "error");
-        return;
-      }
-
-      // Намеренно не сохраняем и не отправляем персональные данные.
-      showMessage("Проверка формы пройдена. Это только демо: сервер регистрации не подключён.", "success");
-      form.reset();
-      confirmPassword.setCustomValidity("");
-    });
-
-    document.getElementById("loginLink").addEventListener("click", (event) => {
-      event.preventDefault();
-      showMessage("Вход пока не реализован. Для настоящей авторизации нужен сервер.", "error");
-    });
-  </script>
+  } else {
+    say(authMessage, "Подключение базы ещё не настроено. Открой README.md и выполни шаги настройки Supabase.", "info");
+  }
+</script>
 </body>
 </html>
